@@ -31,7 +31,7 @@ jobs:
          run: jf docker build -t psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} .
            
        - name: Push Image
-         run: jf docker push psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} --build-name=docker-oidc-publish-test --build-number=${{ github.run_number }}
+         run: jf docker push psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}
          
        - name: Publish Build info With JFrog CLI
          run: |
