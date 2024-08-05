@@ -1,18 +1,16 @@
-name: "Demo-jfrog-gitbub-oidc-docker-publish"
+name: "demo-jfrog-gitbub-oidc-docker-publish"
 on: push
-
 # This is required as per
 # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-cloud-providers#adding-permissions-settings
 permissions:
   id-token: write
-
 jobs:
   build:
      runs-on: ubuntu-latest
      env:
       #OIDC_AUDIENCE: 'jfrog-github'
       OIDC_PROVIDER: 'deepu19t'
-      PLATFORM_REPO: 'blr-docker-stage-virtual'
+      PLATFORM_REPO: 'docker-virtual-repo'
      steps:
        - name: Checkout
          uses: actions/checkout@v3
@@ -27,21 +25,18 @@ jobs:
          with:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
            #oidc-audience: ${{ env.OIDC_AUDIENCE }}
-
        - name: Set CLI Config
-         run: jf docker --build-name=blr-docker-stage-virtual --build-number=1
+         run: jf docker build -t ${{ env.JF_URL }}/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} --build-name=docker-oidc-publish --build-number=${{ github.run_number }}
            
-       - name: Install Dependencies
-         run: jf rt dp psemea.jfrog.io/artifactory/api/docker/blr-docker-stage-virtual:latest docker --build-name=docker-build --build-number=1.0.0
-         
-       - name: Publish
-         run: docker push psemea.jfrog.io/blr-docker-stage-virtual/ubuntu:latest
+       - name: Push Image
+         run: jf docker push ${{ env.JF_URL }}/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} --build-name=docker-oidc-publish --build-number=${{ github.run_number }}
          
        - name: Publish Build info With JFrog CLI
          run: |
           # Collect environment variables for the build
-          jf rt bce jfrog-gitbub-oidc-npm-publish ${{ github.run_number }}
+          jf rt bce docker-oidc-publish ${{ github.run_number }}
           # Collect VCS details from git and add them to the build
-          jf rt build-add-git jfrog-gitbub-oidc-npm-publish ${{ github.run_number }}
+          jf rt bag docker-oidc-publish ${{ github.run_number }}
           # Publish build info
-          jf rt bp jfrog-gitbub-oidc-npm-publish ${{ github.run_number }}
+          jf rt bp docker-oidc-publish ${{ github.run_number }}         
+          
