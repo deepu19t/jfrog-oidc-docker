@@ -29,13 +29,13 @@ jobs:
            #oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
        - name: Set CLI Config
-         run: jf docker --build-name=docker-virtual-repo --build-number=1
+         run: jf docker --build-name=blr-docker-stage-virtual --build-number=1
            
        - name: Install Dependencies
-         run: jf rt dp psemea.jfrog.io/artifactory/api/docker/blr-docker-ps-td:latest docker --build-name=docker-build --build-number=1.0.0
+         run: jf rt dp psemea.jfrog.io/artifactory/api/docker/blr-docker-stage-virtual:latest docker --build-name=docker-build --build-number=1.0.0
          
        - name: Publish
-         run: docker push psemea.jfrog.io/blr-docker-ps-td/ubuntu:latest
+         run: docker push psemea.jfrog.io/blr-docker-stage-virtual/ubuntu:latest
          
        - name: Publish Build info With JFrog CLI
          run: |
