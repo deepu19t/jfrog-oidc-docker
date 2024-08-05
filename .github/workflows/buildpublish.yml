@@ -10,7 +10,7 @@ jobs:
      env:
       #OIDC_AUDIENCE: 'jfrog-github'
       OIDC_PROVIDER: 'deepu19t'
-      PLATFORM_REPO: 'blr-docker-stage-virtual'
+      PLATFORM_REPO: 'blr-td-virtual'
      steps:
        - name: Checkout
          uses: actions/checkout@v3
