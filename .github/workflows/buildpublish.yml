@@ -27,7 +27,7 @@ jobs:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
            #oidc-audience: ${{ env.OIDC_AUDIENCE }}
        - name: Set CLI Config
-         run: jf docker build -t 'https://psemea.jfrog.io'/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} .
+         run: jf docker build -t test 'https://psemea.jfrog.io'/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} .
            
        - name: Push Image
          run: jf docker push ${{ env.JF_URL }}/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }} --build-name=docker-oidc-publish --build-number=${{ github.run_number }}
