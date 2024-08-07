@@ -1,2 +1,2 @@
-FROM https://psemea.jfrog.io/nd-dev-docker-remote/alpine:latest
+FROM psemea.jfrog.io/blr-docker-remote/alpine:latest
 RUN echo "Hello frog!"
