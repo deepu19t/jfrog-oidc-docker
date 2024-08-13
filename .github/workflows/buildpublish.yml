@@ -50,7 +50,7 @@ jobs:
          run: |
            #jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
            echo "${{ env.ACCESS_TOKEN }}"
-           jf docker login -udeepu19t https://psemea.jfrog.io -p${{ env.ACCESS_TOKEN }}   
+           jf docker login -utestuser https://psemea.jfrog.io -p${{ env.ACCESS_TOKEN }}   
           
        - name: Perform Docker Login
          env:
