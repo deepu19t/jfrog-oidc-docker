@@ -47,6 +47,7 @@ jobs:
           JF_URL: ${{ secrets.JF_URL }}
           JF_ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
           
+          
        - name: Perform Docker Login
          env:
           JF_ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
@@ -54,6 +55,7 @@ jobs:
            echo '${{ env.JF_ACCESS_TOKEN }}'
            echo '${{ env.ACCESS_TOKEN }}'
            jf docker login -utestuser https://psemea.jfrog.io -p${{ env.ACCESS_TOKEN }}
+           
            
        - name: Perform Docker Build Image
          run: jf docker build -t 'psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}' .
