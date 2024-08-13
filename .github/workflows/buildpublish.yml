@@ -48,8 +48,8 @@ jobs:
           JF_ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
        - name: Set CLI Config
          run: |
-           echo ${{ env.ACCESS_TOKEN }}
-           jf docker login -utestuser https://psemea.jfrog.io -p${{ env.ACCESS_TOKEN }}   
+           echo ${{ env.JF_ACCESS_TOKEN }}
+           jf docker login -utestuser https://psemea.jfrog.io -p${{ env.JF_ACCESS_TOKEN }}   
           
        - name: Perform Docker Login
          env:
