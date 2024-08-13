@@ -40,7 +40,8 @@ jobs:
           \"subject_token_type\": \"urn:ietf:params:oauth:token-type:id_token\"}" \
           | jq .access_token | tr -d '"')
           echo "ACCESS_TOKEN=${ACCESS_TOKEN}" >> $GITHUB_ENV  
-  
+          docker login '${{ env.JF_URL }}/' --username 'deepakt@jfrog.com' --password ${ACCESS_TOKEN}
+
        - name: Setup jfrog cli
          uses: jfrog/setup-jfrog-cli@v3
          env:
@@ -53,8 +54,7 @@ jobs:
          run: |
            echo '${{ env.JF_ACCESS_TOKEN }}'
            echo '${{ env.ACCESS_TOKEN }}'
-           jf docker login '${{ env.JF_URL }}/' --username 'deepakt@jfrog.com' --password '${{ env.ACCESS_TOKEN }}'
-
+           
        - name: Perform Docker Build Image
          run: jf docker build -t 'psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}' .
            
