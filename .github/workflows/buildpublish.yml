@@ -45,11 +45,7 @@ jobs:
          uses: jfrog/setup-jfrog-cli@v3
          env:
           JF_URL: ${{ secrets.JF_URL }}
-          JF_ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
-       - name: Set CLI Config
-         run: |
-           echo ${{ env.JF_ACCESS_TOKEN }}
-           jf docker login -utestuser https://psemea.jfrog.io -p${{ env.JF_ACCESS_TOKEN }}   
+          JF_ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}  
           
        - name: Perform Docker Login
          env:
