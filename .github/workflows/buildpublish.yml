@@ -60,7 +60,7 @@ jobs:
        - name: Perform Docker Build Image
          run: |
            jf docker build -t 'psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}' .
-           jf docker scan 'psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}'
+           jf docker scan 'psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}' --build-name=github-docker-oidc-publish --build-number=${{ github.run_number }} --fail
            
        - name: Perform Docker Push Image
          run: jf docker push 'psemea.jfrog.io/${{ env.PLATFORM_REPO }}/docker-oidc-publish:${{ github.run_number }}' --build-name=github-docker-oidc-publish --build-number=${{ github.run_number }}
